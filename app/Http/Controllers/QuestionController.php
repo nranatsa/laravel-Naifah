@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -25,16 +24,22 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+      public function store(Request $request)
     {
-        //dd($request->all());
-        $data['nama'] = $request->nama;
-        $data['email'] = $request->email;
-        $data['pertanyaan'] = $request->pertanyaan;
+        $data = $request->validate([
+            'nama'       => 'required',
+            'email'      => 'required|email',
+            'pertanyaan' => 'nullable',
+        ], [
+            'nama.required'  => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email'    => 'Format email tidak valid',
+        ]);
 
-        return view('home-question-respon', $data);
+        return redirect('/home')->with('info', 'Selamat, Kamu Lulus!');
+        // return view('home-question-respon', $data);
+        //return redirect()->route('thank-you')->with('data', $data);
     }
-
     /**
      * Display the specified resource.
      */
