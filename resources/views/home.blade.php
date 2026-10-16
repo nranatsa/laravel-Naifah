@@ -173,9 +173,16 @@
                         @endif
 
                         @if (session('info'))
-                            <div class="alert alert-info">
-                                {!! session('info') !!}
+                            <div class="alert alert-success"
+                                style="padding: 15px; background-color: #d4edda; color: #155724; border-radius: 5px; margin: 15px 0;">
+                                {{ session('info') }}
                             </div>
+
+                            <script>
+                                setTimeout(function() {
+                                    window.location.href = '{{ url('/home-question-respon') }}';
+                                }, 2500);
+                            </script>
                         @endif
                         <form action="{{ route('question.store') }}" method="POST">
                             @csrf

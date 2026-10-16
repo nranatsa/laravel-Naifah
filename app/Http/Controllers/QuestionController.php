@@ -24,22 +24,31 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-      public function store(Request $request)
+    public function store(Request $request)
     {
-        $data = $request->validate([
-            'nama'       => 'required',
-            'email'      => 'required|email',
-            'pertanyaan' => 'nullable',
-        ], [
-            'nama.required'  => 'Nama tidak boleh kosong',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email'    => 'Format email tidak valid',
-        ]);
+        $data = [
+            'nama'       => $request->nama,
+            'email'      => $request->email,
+            'pertanyaan' => $request->pertanyaan,
+        ];
 
-        return redirect('/home')->with('info', 'Selamat, Kamu Lulus!');
-        // return view('home-question-respon', $data);
-        //return redirect()->route('thank-you')->with('data', $data);
+        session()->put('data_pertanyaan', $data);
+        session()->flash('info', 'Data Berhasil Dimasukkan !');
+
+        return redirect('/home');
     }
+
+    public function respon()
+    {
+        $data = session('data_pertanyaan');
+
+        if (! $data) {
+            return redirect('/home');
+        }
+
+        return view('home-question-respon', $data);
+    }
+
     /**
      * Display the specified resource.
      */

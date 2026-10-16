@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Terima Kasih</title>
@@ -49,24 +50,25 @@
         }
     </style>
 </head>
-<body>
 
+<body>
     <div class="thankyou-container">
-        <h2>Terima Kasih, {{$nama}}! 🎉</h2>
+        <h2>Terima kasih, {{ $nama }} 🙏</h2>
         <p class="lead">Pertanyaan Anda telah berhasil dikirim.</p>
 
         <blockquote>
             <strong>Pertanyaan Anda:</strong><br>
-            "{{$pertanyaan}}"
+            "{{ $pertanyaan }}"
         </blockquote>
 
         <p class="email-info mt-4">
-            Pertanyaan Anda akan segera kami tanggapi dan balas melalui email <strong>{{$email}}</strong>.<br><br>
+            Pertanyaan Anda akan kami tanggapi dan balas melalui email
+            <strong>{{ $email }}</strong>.<br><br>
             Mohon cek kotak masuk atau folder spam Anda secara berkala.
         </p>
 
-        <a href="{{ url('/') }}" class="btn btn-primary mt-4">Kembali ke Beranda</a>
+        <a href="{{ url('/home') }}" class="btn btn-primary mt-3">Kembali ke Home</a>
     </div>
-
 </body>
+
 </html>
