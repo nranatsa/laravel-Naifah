@@ -130,6 +130,20 @@
                     </a>
                 </li>
 
+                <!-- Menu Biodata CV 1145 -->
+                <li class="nav-item">
+                    <a href="{{ route('biodata.index') }}" class="nav-link">
+                        <span class="sidebar-icon">
+                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Biodata CV (1145)</span>
+                    </a>
+                </li>
+
                 <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
                 <li class="nav-item">
                     <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/getting-started/quick-start/"
