@@ -28,3 +28,4 @@ Route::post('/admin/biodata', [BiodataController::class, 'store'])->name('biodat
 Route::get('/admin/biodata/{id}/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
 Route::put('/admin/biodata/{id}', [BiodataController::class, 'update'])->name('biodata.update');
 Route::delete('/admin/biodata/{id}', [BiodataController::class, 'destroy'])->name('biodata.destroy');
+Route::resource('pelanggan', PelangganController::class);
