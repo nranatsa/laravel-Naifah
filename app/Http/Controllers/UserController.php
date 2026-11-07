@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-     public function index()
+    public function index()
     {
         $data['dataUser'] = User::all();
         return view('admin.user.index', $data);
@@ -29,12 +30,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        $data['name'] = $request->first_name;
-        $data['email']  = $request->last_name;
-        $data['password']   = $data['password'] = Hash::make($request->password);
-        $data['confrim_password']     = $request->gender;
+        // Validasi Input (Langkah 2 - Validasi)
+        $request->validate([
+            'name'     => 'required|string|max:100',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
 
+        // Olah data untuk disimpan
+        $data['name']     = $request->name;
+        $data['email']    = $request->email;
+        $data['password'] = Hash::make($request->password); // Enkripsi password
 
         User::create($data);
 
@@ -54,7 +60,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $data['dataUser'] = User::findOrFail($id);
+        $data['user'] = User::findOrFail($id);
         return view('admin.user.edit', $data);
     }
 
@@ -63,17 +69,26 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user_id = $id;
-        $user    = User::findOrFail($user_id);
+        $user = User::findOrFail($id);
 
-        $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->birthday   = $request->birthday;
-        $user->gender     = $request->gender;
-        $user->email      = $request->email;
-        $user->phone      = $request->phone;
+        // 1. Validasi Input (Password opsional jika tidak diganti)
+        $request->validate([
+            'name'     => 'required|string|max:100',
+            'email'    => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:8|confirmed',
+        ]);
+
+        // 2. Update data
+        $user->name  = $request->name;
+        $user->email = $request->email;
+
+        // Jika password diisi, maka update password baru dengan Hash
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
 
         $user->save();
+
         return redirect()->route('user.index')->with('success', 'Perubahan Data Berhasil!');
     }
 
@@ -82,11 +97,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = user::findOrFail($id);
-
+        $user = User::findOrFail($id);
         $user->delete();
+
         return redirect()->route('user.index')->with('success', 'Data berhasil dihapus');
-
     }
-
 }

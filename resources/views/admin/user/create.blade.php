@@ -35,63 +35,42 @@
                   <div class="card border-0 shadow components-section">
                       <div class="card-body">
                           <form action="{{ route('user.store') }}" method="POST">
-                              <div class="row mb-4">
-                                  <div class="col-lg-4 col-sm-6">
-                                      <!-- First Name -->
-                                      <div class="mb-3">
-                                          <label for="first_name" class="form-label">First name</label>
-                                          <input type="text" id="first_name" class="form-control" name="first_name"
-                                              required>
-                                      </div>
-
-                                      <!-- Last Name -->
-                                      <div class="mb-3">
-                                          <label for="last_name" class="form-label">Last name</label>
-                                          <input type="text" id="last_name" class="form-control" name="last_name"
-                                              required>
-                                      </div>
+                              @csrf
+                              <div class="row">
+                                  <div class="col-md-6 mb-3">
+                                      <label for="name">Name</label>
+                                      <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                          name="name" value="{{ old('name') }}">
+                                      @error('name')
+                                          <div class="invalid-feedback">{{ $message }}</div>
+                                      @enderror
                                   </div>
-
-                                  <div class="col-lg-4 col-sm-6">
-                                      <!-- Birthday -->
-                                      <div class="mb-3">
-                                          <label for="birthday" class="form-label">Birthday</label>
-                                          <input type="date" id="birthday" class="form-control" name="birthday">
-                                      </div>
-
-                                      <!-- Gender -->
-                                      <div class="mb-3">
-                                          <label for="gender" class="form-label">Gender</label>
-                                          <select id="gender" name="gender" class="form-select">
-                                              <option value="">-- Pilih --</option>
-                                              <option value="Male">Male</option>
-                                              <option value="Female">Female</option>
-                                              <option value="Other">Other</option>
-                                          </select>
-                                      </div>
-                                  </div>
-
-                                  <div class="col-lg-4 col-sm-12">
-                                      <!-- Email -->
-                                      <div class="mb-3">
-                                          <label for="email" class="form-label">Email</label>
-                                          <input type="text" id="email" class="form-control" name="email" required>
-                                      </div>
-
-                                      <!-- Phone -->
-                                      <div class="mb-3">
-                                          <label for="phone" class="form-label">Phone</label>
-                                          <input type="text" id="phone" class="form-control" name="phone">
-                                      </div>
-
-                                      <!-- Buttons -->
-                                      <div class="">
-                                          <button type="submit" class="btn btn-primary">Simpan</button>
-                                          <a href="{{ route('user.index') }}"
-                                              class="btn btn-outline-secondary ms-2">Batal</a>
-                                      </div>
+                                  <div class="col-md-6 mb-3">
+                                      <label for="password">Password</label>
+                                      <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                          name="password">
+                                      @error('password')
+                                          <div class="invalid-feedback">{{ $message }}</div>
+                                      @enderror
                                   </div>
                               </div>
+
+                              <div class="row">
+                                  <div class="col-md-6 mb-3">
+                                      <label for="email">Email</label>
+                                      <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                          name="email" value="{{ old('email') }}">
+                                      @error('email')
+                                          <div class="invalid-feedback">{{ $message }}</div>
+                                      @enderror
+                                  </div>
+                                  <div class="col-md-6 mb-3">
+                                      <label for="password_confirmation">Confirm Password</label>
+                                      <input type="password" class="form-control" name="password_confirmation">
+                                  </div>
+                              </div>
+
+                              <button type="submit" class="btn btn-primary">Simpan</button>
                           </form>
                       </div>
 

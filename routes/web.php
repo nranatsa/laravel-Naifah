@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BiodataController;
 
 Route::get('/', function () {
@@ -29,3 +29,5 @@ Route::get('/admin/biodata/{id}/edit', [BiodataController::class, 'edit'])->name
 Route::put('/admin/biodata/{id}', [BiodataController::class, 'update'])->name('biodata.update');
 Route::delete('/admin/biodata/{id}', [BiodataController::class, 'destroy'])->name('biodata.destroy');
 Route::resource('pelanggan', PelangganController::class);
+
+Route::resource('user', UserController::class);
